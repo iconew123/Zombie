@@ -15,7 +15,7 @@ public class Zombie extends Unit implements Attack, Heal {
 		Unit unit = (Unit) target;
 		int attack = random.nextInt(this.getMax()) + 1;
 
-		unit.setHp(attack);
+		unit.setHp(attack * (-1));
 		System.out.printf("%s의 일반공격으로 %d의 데미지를 %s에게 입혔습니다.\n", this.getType(), attack, unit.getType());
 
 	}

@@ -45,7 +45,7 @@ public class Hero extends Unit implements Attack {
 		if (crit)
 			attack *= 2;
 
-		unit.setHp(attack);
+		unit.setHp(attack * (-1));
 		System.out.printf("%s의 " + (crit ? "크리티컬 공격!" : "일반 공격") + "으로 %d피해를 %s에게 입혔습니다.\n", this.getType(), attack,
 				unit.getType());
 	}
