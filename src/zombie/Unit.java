@@ -19,11 +19,13 @@ public class Unit {
 	}
 
 	public void setHp(int hp) {
-		this.hp = hp;
+		this.hp += hp;
+
 		if (this.hp <= 0) {
 			this.hp = 0;
 			this.isDead = true;
-		}
+		} else if (this.hp >= MAX_HP)
+			this.hp = MAX_HP;
 	}
 
 	public boolean getIsDead() {
@@ -36,6 +38,10 @@ public class Unit {
 
 	public void setMax() {
 		this.max += 2;
+	}
+
+	public String getType() {
+		return this.type;
 	}
 
 	@Override
