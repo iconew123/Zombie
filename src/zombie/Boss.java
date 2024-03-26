@@ -6,15 +6,21 @@ public class Boss extends Unit implements Attack, Heal {
 
 	private Random random = new Random();
 
+	public final int MAX_SHIELD;
 	private int shield;
 
 	public Boss(int hp, int max, int shield) {
 		super("보스좀비", hp, max);
 		this.shield = shield;
+		MAX_SHIELD = shield;
 	}
 
 	public int getShield() {
 		return this.shield;
+	}
+
+	public void setShield(int shield) {
+		this.shield += shield;
 	}
 
 	@Override
@@ -36,6 +42,6 @@ public class Boss extends Unit implements Attack, Heal {
 		int healing = 20;
 		int curHp = unit.getHp();
 		unit.setHp(healing);
-		System.out.printf("일반 Zombie 힐스킬 사용으로 %d만큼 회복했습니다.\n", unit.getHp() - curHp);
+		System.out.printf("보스 Zombie 힐스킬 사용으로 %d만큼 회복했습니다.\n", unit.getHp() - curHp);
 	}
 }

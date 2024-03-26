@@ -30,7 +30,7 @@ public class Hero extends Unit implements Attack {
 	public void setHealItemPlus() {
 		this.healItem++;
 	}
-	
+
 	public void setHealItemMinus() {
 		this.healItem--;
 	}
@@ -49,9 +49,22 @@ public class Hero extends Unit implements Attack {
 		if (crit)
 			attack *= 2;
 
-		unit.setHp(attack * (-1));
+		if (unit.getType().equals("보스좀비")) {
+			Boss tmp = (Boss) unit;
+			attackBoss(tmp, attack);
+		} else if (unit.getType().equals("일반좀비"))
+			unit.setHp(attack * (-1));
 		System.out.printf("%s의 " + (crit ? "크리티컬 공격!" : "일반 공격") + "으로 %d피해를 %s에게 입혔습니다.\n", this.getType(), attack,
 				unit.getType());
+	}
+
+	private void attackBoss(Boss boss, int attack) {
+		int sub = boss.getShield() - attack;
+		if (sub <= 0) {
+			boss.setShield(boss.getShield() * -1);
+			boss.setHp(sub);
+		} else
+			boss.setShield(attack * -1);
 	}
 
 }

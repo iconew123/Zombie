@@ -99,14 +99,13 @@ public class Game {
 			printBattleAction();
 
 			int battleSel = inputNumber(">> ");
-			if (battleSel < PLAYER_ATTACK || battleSel > PLAYER_USE_HEALITEM)
+			if (heroChoice(battleSel, boss))
 				continue;
-			heroChoice(battleSel, boss);
 
 			int zombieAction = random.nextInt(6) < 1 ? ZOMBIE_USE_HEALSKILL : ZOMBIE_ATTACK;
 			bossPattern(zombieAction);
 
-			System.out.println(hero + "\t" + boss);
+			System.out.printf(hero + "\t" + boss + ", 쉴드 : [%d/%d]\n", boss.getShield(), boss.MAX_SHIELD);
 
 			if (boss.getIsDead())
 				setIsBattle();
@@ -171,9 +170,15 @@ public class Game {
 	}
 
 	private void useHealItem() {
+		if (hero.getHealItem() == 0) {
+			System.err.println("사용가능한 포션이 없습니다.");
+			return;
+		}
+		int curHp = hero.getHp();
 		hero.setHealItemMinus();
 		hero.setHp(100);
-		System.out.printf("포션을 사용하여 100을 회복했습니다. 현재체력 : %d, 남은 포션갯수 : %d\n", hero.getHp(), hero.getHealItem());
+		System.out.printf("포션을 사용하여 %d을(를) 회복했습니다. 현재체력 : %d, 남은 포션갯수 : %d\n", hero.getHp() - curHp, hero.getHp(),
+				hero.getHealItem());
 	}
 
 	private void getHealItem(boolean getItem) {
