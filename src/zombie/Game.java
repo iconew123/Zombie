@@ -23,8 +23,12 @@ public class Game {
 	private Boss boss = new Boss(350, 30, 30);
 	private Zombie zombie;
 
+	public void setIsBattle() {
+		this.isBattle = !this.isBattle;
+	}
+
 	private boolean isRun() {
-		return hero.getPos() == 11 || hero.getIsDead() || sel == 2 ? false : true;
+		return hero.getPos() == 10 || hero.getIsDead() || sel == 2 ? false : true;
 	}
 
 	private int inputNumber(String text) {
@@ -49,7 +53,7 @@ public class Game {
 
 	private void mainChoice(int sel) {
 		if (sel == 1) {
-			if (hero.getPos() < 10)
+			if (hero.getPos() < 8)
 				zombie = randomCreateNormalZombie();
 			hero.setPos();
 		} else if (sel == 2)
@@ -66,10 +70,34 @@ public class Game {
 			int hp = random.nextInt(31) + 70;
 			int max = random.nextInt(4) + 7;
 			tmp = new Zombie(hp, max);
-			isBattle = true;
+			setIsBattle();
 		}
 
 		return tmp;
+	}
+
+	private void battle() {
+		if (hero.getPos() == 9) {
+			setIsBattle();
+			bossBattle();
+		} else
+			normalBattle();
+	}
+
+	private void bossBattle() {
+		while (!boss.getIsDead()) {
+			System.out.printf("%s와 전투중\n", boss.getType());
+			boss.setHp(boss.getHp() * -1);
+		}
+		setIsBattle();
+	}
+
+	private void normalBattle() {
+		while (!zombie.getIsDead()) {
+			System.out.printf("%s와 전투중\n", zombie.getType());
+			zombie.setHp(zombie.getHp() * -1);
+		}
+		setIsBattle();
 	}
 
 	public void run() {
@@ -77,7 +105,9 @@ public class Game {
 			printNextAction();
 			this.sel = inputNumber(">> ");
 			mainChoice(this.sel);
+			if (isBattle || hero.getPos() == 9)
+				battle();
 		}
-		System.out.println("목적지 도착");
+		System.out.printf("현재위치 %d\n목적지 도착", hero.getPos());
 	}
 }
