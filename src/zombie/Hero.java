@@ -27,8 +27,12 @@ public class Hero extends Unit implements Attack {
 	}
 
 	// 드롭아이템
-	public void setHealItem() {
+	public void setHealItemPlus() {
 		this.healItem++;
+	}
+	
+	public void setHealItemMinus() {
+		this.healItem--;
 	}
 
 	public void powerUp() {

@@ -17,6 +17,14 @@ public class Game {
 		return instance;
 	}
 
+	private final int PLAYER_MOVE = 1;
+	private final int END = 2;
+
+	private final int PLAYER_ATTACK = 1;
+	private final int PLAYER_USE_HEALITEM = 2;
+	private final int ZOMBIE_ATTACK = 1;
+	private final int ZOMBIE_USE_HEALSKILL = 2;
+
 	private int sel;
 	private boolean isBattle;
 	private Hero hero = new Hero(300, 1, 20);
@@ -52,11 +60,11 @@ public class Game {
 	}
 
 	private void mainChoice(int sel) {
-		if (sel == 1) {
+		if (sel == PLAYER_MOVE) {
 			if (hero.getPos() < 8)
 				zombie = randomCreateNormalZombie();
 			hero.setPos();
-		} else if (sel == 2)
+		} else if (sel == END)
 			System.out.println("게임종료");
 		else
 			System.err.println("없는 기능입니다.");
@@ -64,6 +72,7 @@ public class Game {
 
 	private Zombie randomCreateNormalZombie() {
 		Zombie tmp = null;
+		// 33%확률로 소환
 		boolean create = random.nextInt(3) < 1 ? true : false;
 		if (create) {
 			// 생성된 좀비의 체력은 70~100사이 최대공격력은 7~10사이로 설정
@@ -85,19 +94,93 @@ public class Game {
 	}
 
 	private void bossBattle() {
+		System.out.printf("%s과 전투 시작!\n", boss.getType());
 		while (!boss.getIsDead()) {
-			System.out.printf("%s와 전투중\n", boss.getType());
-			boss.setHp(boss.getHp() * -1);
+			printBattleAction();
+
+			int battleSel = inputNumber(">> ");
+			if (battleSel < PLAYER_ATTACK || battleSel > PLAYER_USE_HEALITEM)
+				continue;
+			heroChoice(battleSel, boss);
+
+			int zombieAction = random.nextInt(6) < 1 ? ZOMBIE_USE_HEALSKILL : ZOMBIE_ATTACK;
+			bossPattern(zombieAction);
+
+			System.out.println(hero + "\t" + boss);
+
+			if (boss.getIsDead())
+				setIsBattle();
 		}
-		setIsBattle();
+	}
+
+	private void bossPattern(int zombieAction) {
+		if (zombieAction == ZOMBIE_ATTACK)
+			boss.attack(hero);
+		else if (zombieAction == ZOMBIE_USE_HEALSKILL)
+			boss.healSkill(boss);
 	}
 
 	private void normalBattle() {
+		System.out.printf("%s와 전투 시작\n", zombie.getType());
 		while (!zombie.getIsDead()) {
-			System.out.printf("%s와 전투중\n", zombie.getType());
-			zombie.setHp(zombie.getHp() * -1);
+			printBattleAction();
+
+			int battleSel = inputNumber(">> ");
+			if (heroChoice(battleSel, zombie))
+				continue;
+
+			int zombieAction = random.nextInt(6) < 1 ? ZOMBIE_USE_HEALSKILL : ZOMBIE_ATTACK;
+			zombiePattern(zombieAction);
+
+			System.out.println(hero + "\t" + zombie);
+
+			if (zombie.getIsDead()) {
+				boolean getItem = random.nextInt(2) == 1 ? true : false;
+				getHealItem(getItem);
+				hero.powerUp();
+				setIsBattle();
+			}
 		}
-		setIsBattle();
+	}
+
+	private void zombiePattern(int zombieAction) {
+		if (zombieAction == ZOMBIE_ATTACK)
+			zombie.attack(hero);
+		else if (zombieAction == ZOMBIE_USE_HEALSKILL)
+			zombie.healSkill(zombie);
+	}
+
+	private void printBattleAction() {
+		System.out.println("[1] 공격하기");
+		System.out.println("[2] 회복 아이템 사용");
+	}
+
+	private boolean heroChoice(int battleSel, Unit unit) {
+		if (battleSel == PLAYER_ATTACK) {
+			playerAttack(unit);
+			return false;
+		} else if (battleSel == PLAYER_USE_HEALITEM) {
+			useHealItem();
+			return true;
+		} else
+			return true;
+	}
+
+	private void playerAttack(Unit unit) {
+		hero.attack(unit);
+	}
+
+	private void useHealItem() {
+		hero.setHealItemMinus();
+		hero.setHp(100);
+		System.out.printf("포션을 사용하여 100을 회복했습니다. 현재체력 : %d, 남은 포션갯수 : %d\n", hero.getHp(), hero.getHealItem());
+	}
+
+	private void getHealItem(boolean getItem) {
+		if (getItem) {
+			hero.setHealItemPlus();
+			System.out.printf("좀비를 처치하여 아이템을 얻었습니다. 현재 남은 포션갯수 : %d\n", hero.getHealItem());
+		}
 	}
 
 	public void run() {
