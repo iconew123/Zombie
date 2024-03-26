@@ -1,0 +1,5 @@
+package zombie;
+
+interface Heal {
+
+}
