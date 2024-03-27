@@ -27,4 +27,5 @@
 <img width="50%" src="https://github.com/iconew123/Zombie/blob/master/images/ZombieGame.jpg"/>
 
 > Demo <br>
-![diagram](https://github.com/iconew123/Zombie/blob/master/images/-Clipchamp-ezgif.com-video-to-gif-converter%20(2).gif) 
+<img width="25%" src="https://github.com/iconew123/Zombie/blob/master/images/-Clipchamp-ezgif.com-video-to-gif-converter%20(2).gif"/>
+
