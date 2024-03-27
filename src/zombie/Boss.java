@@ -2,7 +2,7 @@ package zombie;
 
 import java.util.Random;
 
-public class Boss extends Unit implements Attack, Heal {
+public class Boss extends Zombie implements Attack {
 
 	private Random random = new Random();
 
@@ -37,11 +37,14 @@ public class Boss extends Unit implements Attack, Heal {
 				unit.getType());
 	}
 
-	public void healSkill(Heal target) {
+	@Override
+	public void healSkill(Unit target) {
 		Unit unit = (Unit) target;
 		int healing = 20;
 		int curHp = unit.getHp();
 		unit.setHp(healing);
 		System.out.printf("보스 Zombie 힐스킬 사용으로 %d만큼 회복했습니다.\n", unit.getHp() - curHp);
+
 	}
+
 }

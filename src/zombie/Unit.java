@@ -1,6 +1,7 @@
 package zombie;
 
 public class Unit {
+
 	public final int MAX_HP;
 	private String type;
 	private int hp;

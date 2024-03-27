@@ -29,7 +29,7 @@ public class Game {
 	private boolean isBattle;
 	private Hero hero = new Hero(300, 1, 20);
 	private Boss boss = new Boss(350, 30, 30);
-	private Zombie zombie;
+	private Noraml normal;
 
 	public void setIsBattle() {
 		this.isBattle = !this.isBattle;
@@ -62,7 +62,7 @@ public class Game {
 	private void mainChoice(int sel) {
 		if (sel == PLAYER_MOVE) {
 			if (hero.getPos() < 8)
-				zombie = randomCreateNormalZombie();
+				normal = randomCreateNormalZombie();
 			hero.setPos();
 		} else if (sel == END)
 			System.out.println("게임종료");
@@ -70,15 +70,15 @@ public class Game {
 			System.err.println("없는 기능입니다.");
 	}
 
-	private Zombie randomCreateNormalZombie() {
-		Zombie tmp = null;
+	private Noraml randomCreateNormalZombie() {
+		Noraml tmp = null;
 		// 33%확률로 소환
 		boolean create = random.nextInt(3) < 1 ? true : false;
 		if (create) {
 			// 생성된 좀비의 체력은 70~100사이 최대공격력은 7~10사이로 설정
 			int hp = random.nextInt(31) + 70;
 			int max = random.nextInt(4) + 7;
-			tmp = new Zombie(hp, max);
+			tmp = new Noraml(hp, max);
 			setIsBattle();
 		}
 
@@ -120,20 +120,20 @@ public class Game {
 	}
 
 	private void normalBattle() {
-		System.out.printf("%s와 전투 시작\n", zombie.getType());
-		while (!zombie.getIsDead()) {
+		System.out.printf("%s와 전투 시작\n", normal.getType());
+		while (!normal.getIsDead()) {
 			printBattleAction();
 
 			int battleSel = inputNumber(">> ");
-			if (heroChoice(battleSel, zombie))
+			if (heroChoice(battleSel, normal))
 				continue;
 
 			int zombieAction = random.nextInt(6) < 1 ? ZOMBIE_USE_HEALSKILL : ZOMBIE_ATTACK;
 			zombiePattern(zombieAction);
 
-			System.out.println(hero + "\t" + zombie);
+			System.out.println(hero + "\t" + normal);
 
-			if (zombie.getIsDead()) {
+			if (normal.getIsDead()) {
 				boolean getItem = random.nextInt(2) == 1 ? true : false;
 				getHealItem(getItem);
 				hero.powerUp();
@@ -144,9 +144,9 @@ public class Game {
 
 	private void zombiePattern(int zombieAction) {
 		if (zombieAction == ZOMBIE_ATTACK)
-			zombie.attack(hero);
+			normal.attack(hero);
 		else if (zombieAction == ZOMBIE_USE_HEALSKILL)
-			zombie.healSkill(zombie);
+			normal.healSkill(normal);
 	}
 
 	private void printBattleAction() {
