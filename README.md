@@ -27,4 +27,4 @@
 <img width="50%" src="https://github.com/iconew123/Zombie/blob/master/images/ZombieGame.jpg"/>
 
 > Demo <br>
-![diagram]() 
+![diagram](https://github.com/iconew123/Zombie/blob/master/images/GIFMaker_me%20(1).gif) 
