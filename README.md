@@ -3,7 +3,7 @@
 > 소개
 
 > Class Diagram (UML) <br>
-![diagram]()
+<img width="50%" src="https://github.com/iconew123/Zombie/blob/master/images/ZombieGame.jpg"/>
 
 > Demo <br>
 ![diagram]() 
