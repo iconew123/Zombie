@@ -27,4 +27,4 @@
 <img width="50%" src="https://github.com/iconew123/Zombie/blob/master/images/ZombieGame.jpg"/>
 
 > Demo <br>
-![diagram](https://github.com/iconew123/Zombie/blob/master/images/GIFMaker_me%20(1).gif) 
+![diagram](https://github.com/iconew123/Zombie/blob/master/images/42dad48e-ba73-4e4f-9a1d-670ca3e53b7e-ezgif.com-video-to-gif-converter.gif) 
