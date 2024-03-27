@@ -1,6 +1,6 @@
 package zombie;
 
-public class Noraml extends Zombie implements Attack {
+public class Noraml extends Zombie implements Attackable {
 
 	public Noraml(int hp, int max) {
 		super("일반좀비", hp, max);

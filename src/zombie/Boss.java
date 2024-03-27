@@ -1,6 +1,6 @@
 package zombie;
 
-public class Boss extends Zombie implements Attack {
+public class Boss extends Zombie implements Attackable {
 
 	public final int MAX_SHIELD;
 	private int shield;

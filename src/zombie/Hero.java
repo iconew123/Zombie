@@ -1,6 +1,6 @@
 package zombie;
 
-public class Hero extends Unit implements Attack {
+public class Hero extends Unit implements Attackable {
 
 	private int pos;
 	private int healItem;
