@@ -1,10 +1,6 @@
 package zombie;
 
-import java.util.Random;
-
 public class Boss extends Zombie implements Attack {
-
-	private Random random = new Random();
 
 	public final int MAX_SHIELD;
 	private int shield;

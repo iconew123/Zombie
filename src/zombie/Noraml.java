@@ -1,10 +1,6 @@
 package zombie;
 
-import java.util.Random;
-
 public class Noraml extends Zombie implements Attack {
-
-	private Random random = new Random();
 
 	public Noraml(int hp, int max) {
 		super("일반좀비", hp, max);

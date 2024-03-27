@@ -1,6 +1,10 @@
 package zombie;
 
+import java.util.Random;
+
 public class Unit {
+
+	public Random random = new Random();
 
 	public final int MAX_HP;
 	private String type;
@@ -48,7 +52,7 @@ public class Unit {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return isDead ? String.format("[%s유닛 사망]", this.type)
+		return isDead ? String.format("[%s유닛 사망]\n", this.type)
 				: String.format("%s : [%d/%d]", this.type, this.hp, MAX_HP);
 	}
 

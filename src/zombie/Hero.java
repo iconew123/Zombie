@@ -1,9 +1,6 @@
 package zombie;
 
-import java.util.Random;
-
 public class Hero extends Unit implements Attack {
-	private Random random = new Random();
 
 	private int pos;
 	private int healItem;

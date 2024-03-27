@@ -105,7 +105,9 @@ public class Game {
 			int zombieAction = random.nextInt(6) < 1 ? ZOMBIE_USE_HEALSKILL : ZOMBIE_ATTACK;
 			bossPattern(zombieAction);
 
-			System.out.printf(hero + "\t" + boss + ", 쉴드 : [%d/%d]\n", boss.getShield(), boss.MAX_SHIELD);
+			System.out.print(hero + "\t" + boss);
+			if (!boss.getIsDead())
+				System.out.printf(", 쉴드 : [%d/%d]\n", boss.getShield(), boss.MAX_SHIELD);
 
 			if (boss.getIsDead())
 				setIsBattle();
