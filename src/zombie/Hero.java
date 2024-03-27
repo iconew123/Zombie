@@ -42,7 +42,7 @@ public class Hero extends Unit implements Attack {
 
 	@Override
 	public void attack(Unit target) {
-		Unit unit = (Unit) target;
+		Unit unit = target;
 		int attack = random.nextInt(this.getMax()) + 1;
 
 		boolean crit = random.nextInt(5) < 1 ? true : false;

@@ -109,6 +109,8 @@ public class Game {
 
 			if (boss.getIsDead())
 				setIsBattle();
+			else if (hero.getIsDead())
+				break;
 		}
 	}
 
@@ -138,7 +140,8 @@ public class Game {
 				getHealItem(getItem);
 				hero.powerUp();
 				setIsBattle();
-			}
+			} else if (hero.getIsDead())
+				break;
 		}
 	}
 
@@ -188,6 +191,15 @@ public class Game {
 		}
 	}
 
+	private void gameoverMessage() {
+		if (this.sel == 2)
+			System.out.println("프로그램 강제 종료");
+		else if (hero.getIsDead())
+			System.err.println("용사 사망으로 게임종료");
+		else if (hero.getPos() == 10)
+			System.out.printf("현재위치 %d\n목적지 도착", hero.getPos());
+	}
+
 	public void run() {
 		while (isRun()) {
 			printNextAction();
@@ -196,6 +208,6 @@ public class Game {
 			if (isBattle || hero.getPos() == 9)
 				battle();
 		}
-		System.out.printf("현재위치 %d\n목적지 도착", hero.getPos());
+		gameoverMessage();
 	}
 }
